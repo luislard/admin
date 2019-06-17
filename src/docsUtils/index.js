@@ -29,6 +29,18 @@ export function replaceResource(resources, replaceResource) {
     resource.listFields = replaceResource.listFields;
   }
 
+  if (undefined !== replaceResource.showFields) {
+    resource.showFields = replaceResource.showFields;
+  }
+
+  if (undefined !== replaceResource.editFields) {
+    resource.editFields = replaceResource.editFields;
+  }
+
+  if (undefined !== replaceResource.createFields) {
+    resource.createFields = replaceResource.createFields;
+  }
+
   if (undefined !== replaceResource.fields) {
     replaceResource.fields.forEach(resourceField => {
       if (resourceField.field) {
@@ -43,6 +55,10 @@ export function replaceResource(resources, replaceResource) {
 
   if (undefined !== replaceResource.list) {
     resource.list = replaceResource.list;
+  }
+
+  if (undefined !== replaceResource.show) {
+    resource.show = replaceResource.show;
   }
 
   if (undefined !== replaceResource.create) {
