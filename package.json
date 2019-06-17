@@ -1,5 +1,5 @@
 {
-  "name": "@api-platform/admin",
+  "name": "@luislard/admin",
   "version": "0.6.3",
   "description": "Automatic administration interface for Hydra-enabled APIs.",
   "files": [
@@ -9,8 +9,8 @@
     "src"
   ],
   "main": "lib/index",
-  "repository": "api-platform/admin",
-  "homepage": "https://github.com/api-platform/admin",
+  "repository": "luislard/admin",
+  "homepage": "https://github.com/luislard/admin",
   "bugs": "https://github.com/api-platform/admin/issues",
   "author": "Kévin Dunglas",
   "license": "MIT",
