@@ -120,8 +120,17 @@ export default ({entrypoint, resources = []}, httpClient = fetchHydra) => {
    */
   const convertReactAdminDataToHydraData = (resource, data = {}) => {
     const fieldData = [];
-    resource.fields.forEach(({name, normalizeData}) => {
-      if (!(name in data) || undefined === normalizeData) {
+    resource.fields.forEach(({name, reference, normalizeData}) => {
+      if (!(name in data)) {
+        return;
+      }
+
+      if (reference && data[name] === '') {
+        data[name] = null;
+        return;
+      }
+
+      if (undefined === normalizeData) {
         return;
       }
 
@@ -192,7 +201,8 @@ export default ({entrypoint, resources = []}, httpClient = fetchHydra) => {
           url: itemUrl,
         });
 
-      case GET_LIST: {
+      case GET_LIST:
+      case GET_MANY_REFERENCE: {
         const {
           pagination: {page, perPage},
           sort: {field, order},
@@ -211,11 +221,15 @@ export default ({entrypoint, resources = []}, httpClient = fetchHydra) => {
 
             Object.keys(filterValue).forEach(subKey => {
               collectionUrl.searchParams.set(
-                `${key}[${subKey}]`,
+                `${key}.${subKey}`,
                 filterValue[subKey],
               );
             });
           });
+        }
+
+        if (type === GET_MANY_REFERENCE && params.target) {
+          collectionUrl.searchParams.set(params.target, params.id);
         }
 
         return Promise.resolve({
@@ -223,15 +237,6 @@ export default ({entrypoint, resources = []}, httpClient = fetchHydra) => {
           url: collectionUrl,
         });
       }
-
-      case GET_MANY_REFERENCE:
-        if (params.target) {
-          collectionUrl.searchParams.set(params.target, params.id);
-        }
-        return Promise.resolve({
-          options: {},
-          url: collectionUrl,
-        });
 
       case GET_ONE:
         return Promise.resolve({
