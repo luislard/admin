@@ -9,9 +9,14 @@
     "src"
   ],
   "main": "lib/index",
-  "repository": "luislard/admin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luislard/admin.git"
+  },
   "homepage": "https://github.com/luislard/admin",
-  "bugs": "https://github.com/api-platform/admin/issues",
+  "bugs": {
+    "url": "https://github.com/api-platform/admin/issues"
+  },
   "author": "Kévin Dunglas",
   "license": "MIT",
   "devDependencies": {
